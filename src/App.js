@@ -1,28 +1,62 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { render } from "react-dom";
+import { Cytoscape } from "./Cytoscape";
+import elements from "./elements";
+import entities from "./entities";
+import { Entity } from "./Entity";
+import * as cytoscape from "cytoscape";
+import { HtmlLayer } from "./HtmlLayer";
 
-class App extends Component {
+const style = [
+  {
+    selector: "edge",
+    css: {},
+    style: {
+      width: 1,
+      "mid-target-arrow-shape": "circle",
+      "curve-style": "bezier",
+      "target-arrow-shape": "triangle"
+    }
+  },
+  {
+    selector: "node",
+    css: {},
+    style: {
+      height: 58,
+      shape: "rectangle",
+      width: 252,
+      opacity: 0,
+      "background-color": "white"
+    }
+  }
+];
+
+export default class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <React.Fragment>
+        <Cytoscape
+          style={{ height: 490, width: 650, zIndex: 2 }}
+          options={{
+            elements,
+            layout: { name: "dagre" },
+            style
+          }}
+        >
+          {cytoscape => {
+            return (
+              <HtmlLayer cytoscape={cytoscape}>
+                {cytoscape.nodes().map(node => (
+                  <Entity node={node} entity={entities[node.data().id]} />
+                ))}
+                <div style={{ left: 1000 }}>testing testing</div>
+              </HtmlLayer>
+            );
+          }}
+        </Cytoscape>
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+render(<App />, document.getElementById("root"));
