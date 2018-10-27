@@ -1,42 +1,20 @@
-import * as React from "react";
-import * as cytoscape from "cytoscape";
+import React from "react";
 
-export function ChartElement(props) {
-  const { node, entity } = props;
-  const { entityDomain, entityName, entityType } = entity;
-
+export function ChartElement({ node }) {
+  const name = node.data().name;
+  const id = node.data().id;
   return (
     <div
-      key={node.data().id}
+      key={id}
       style={{
         backgroundColor: "white",
         overflow: "hidden",
         borderRadius: "3px",
         border: "1px solid gray"
       }}
-      title={JSON.stringify(entity)}
+      title={JSON.stringify(name)}
     >
-      <div style={{ backgroundColor: "rgb(171,191,131)", height: 5 }} />
-      <div
-        style={{
-          float: "left",
-          backgroundColor: "gray",
-          margin: 16,
-          width: 18,
-          height: 18
-        }}
-      />
-      <div
-        style={{
-          fontSize: 14,
-          whiteSpace: "nowrap",
-          fontFamily: "sans-serif",
-          marginTop: 8
-        }}
-      >
-        {entityName}
-      </div>
-      <div
+      <p
         style={{
           fontSize: 12,
           fontFamily: "sans-serif",
@@ -44,8 +22,8 @@ export function ChartElement(props) {
           color: "gray"
         }}
       >
-        {entityDomain.toLowerCase()} {entityType.toLowerCase()}
-      </div>
+        {name}
+      </p>
     </div>
   );
 }

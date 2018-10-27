@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as cytoscape from "cytoscape";
 
 export class HtmlLayer extends React.Component {
   render() {

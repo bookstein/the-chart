@@ -1,11 +1,8 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { Cytoscape } from "./Cytoscape";
-import elements from "./elements";
-import entities from "./entities";
-import { Entity } from "./Entity";
-import * as cytoscape from "cytoscape";
 import { HtmlLayer } from "./HtmlLayer";
+import { ChartElement } from "./ChartElement";
 
 const style = [
   {
@@ -35,21 +32,47 @@ export default class App extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <h2>Welcome to the Chart</h2>
         <Cytoscape
           style={{ height: 490, width: 650, zIndex: 2 }}
           options={{
-            elements,
+            elements: [
+              // list of graph elements to start with
+              {
+                // node aaa
+                data: {
+                  name: "Alice Pieszecki",
+                  id: "aaa"
+                }
+              },
+              {
+                // node bbb
+                data: {
+                  name: "Shane McCutcheon",
+                  id: "bbb"
+                }
+              },
+              {
+                // edge aaabbb
+                data: {
+                  source: "aaa",
+                  target: "bbb",
+                  id: "aaabbb"
+                }
+              }
+            ],
             layout: { name: "dagre" },
             style
           }}
         >
           {cytoscape => {
+            // cytoscape here comes from Cytoscape.js - function passed in as children
             return (
               <HtmlLayer cytoscape={cytoscape}>
-                {cytoscape.nodes().map(node => (
-                  <Entity node={node} entity={entities[node.data().id]} />
+                {// .nodes() maps over a collection
+                cytoscape.nodes().map(node => (
+                  <ChartElement node={node} />
                 ))}
-                <div style={{ left: 1000 }}>testing testing</div>
               </HtmlLayer>
             );
           }}

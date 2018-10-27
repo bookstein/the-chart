@@ -3,13 +3,13 @@ import { findDOMNode } from "react-dom";
 import * as cytoscape from "cytoscape";
 import * as dagre from "cytoscape-dagre";
 
-cytoscape.use(dagre);
+cytoscape.use(dagre); // use extension 'dagre' (graph layout - https://github.com/cytoscape/cytoscape.js-dagre)
 
 export class Cytoscape extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cytoscape: cytoscape({})
+      cytoscape: cytoscape({}) // initiatize with empty options
     };
   }
 
