@@ -1,3 +1,18 @@
+# Welcome to The Chart
+
+## Setting up
+
+We need a starting dataset. Let's use the characters from the L Word to begin with.
+
+### Creating a starting dataset
+Use the script `create-initial-dataset.js` to establish some initial data in a JSON file, `dataset.json`, containing the starter set of nodes and edges.
+
+```bash
+node ./create-initial-dataset.js
+# output > src/dataset.json
+```
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

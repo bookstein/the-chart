@@ -13,7 +13,11 @@ export class Cytoscape extends React.Component {
     };
   }
 
+  // CHALLENGE: make a custom hook - useCytoscape
+  // useCytoscape(<div id="root"/>) => returns div with cytoscape inside it, instance of cytoscape obj
+
   componentDidMount() {
+    // this adds the chart to the specified div
     const cy = cytoscape({
       ...this.props.options,
       container: findDOMNode(this)

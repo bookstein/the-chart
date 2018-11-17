@@ -1,8 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { Cytoscape } from "./Cytoscape";
-import { HtmlLayer } from "./HtmlLayer";
-import { ChartElement } from "./ChartElement";
 
 const style = [
   {
@@ -17,66 +15,32 @@ const style = [
   },
   {
     selector: "node",
-    css: {},
-    style: {
-      height: 58,
-      shape: "rectangle",
-      width: 252,
-      opacity: 0,
-      "background-color": "white"
+    css: {
+      shape: "circle",
+      width: 60, // 'mapData(weight, 40, 80, 20, 60)', // There's an error in the Cytoscape type definitions for this, so disabling.
+      content: "data(label)",
+      "text-valign": "center",
+      "text-outline-width": 2,
+      color: "#fff"
     }
   }
 ];
 
 export default class App extends React.Component {
   render() {
+    const dataset = require("./dataset.json");
+    debugger;
     return (
       <React.Fragment>
         <h2>Welcome to the Chart</h2>
         <Cytoscape
-          style={{ height: 490, width: 650, zIndex: 2 }}
+          style={{ height: 1000, width: 1000, zIndex: 2 }}
           options={{
-            elements: [
-              // list of graph elements to start with
-              {
-                // node aaa
-                data: {
-                  name: "Alice Pieszecki",
-                  id: "aaa"
-                }
-              },
-              {
-                // node bbb
-                data: {
-                  name: "Shane McCutcheon",
-                  id: "bbb"
-                }
-              },
-              {
-                // edge aaabbb
-                data: {
-                  source: "aaa",
-                  target: "bbb",
-                  id: "aaabbb"
-                }
-              }
-            ],
+            elements: dataset,
             layout: { name: "dagre" },
             style
           }}
-        >
-          {cytoscape => {
-            // cytoscape here comes from Cytoscape.js - function passed in as children
-            return (
-              <HtmlLayer cytoscape={cytoscape}>
-                {// .nodes() maps over a collection
-                cytoscape.nodes().map(node => (
-                  <ChartElement node={node} />
-                ))}
-              </HtmlLayer>
-            );
-          }}
-        </Cytoscape>
+        />
       </React.Fragment>
     );
   }
